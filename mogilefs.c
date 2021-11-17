@@ -48,20 +48,18 @@
 #include "zend_exceptions.h"
 
 #include "php_mogilefs.h"
+
+#if PHP_VERSION_ID < 80000
+#include "mogilefs_legacy_arginfo.h"
+#else
 #include "mogilefs_arginfo.h"
+#endif
 
 #include <ne_socket.h>
 #include <ne_session.h>
 #include <ne_utils.h>
 #include <ne_auth.h>
 #include <ne_basic.h>
-
-#if (PHP_MAJOR_VERSION == 5 && PHP_MINOR_VERSION > 2) || PHP_MAJOR_VERSION > 5
-# define MOGILEFS_ARG_INFO
-#else
-# define MOGILEFS_ARG_INFO static
-#endif
-
 
 /* True global resources - no need for thread safety here */
 static int le_mogilefs_sock;

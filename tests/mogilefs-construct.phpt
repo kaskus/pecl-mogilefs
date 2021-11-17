@@ -3,6 +3,7 @@ MogileFs::__construct()
 --SKIPIF--
 <?php
 require_once dirname(__FILE__) . '/test-helper.php';
+if (PHP_VERSION_ID < 80000) die("skip PHP 8 only");
 if (mogilefs_skipped()) print "skip";
 --FILE--
 <?php

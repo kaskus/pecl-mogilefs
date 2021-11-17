@@ -3,6 +3,7 @@ Mogilefs::createClass(string domain, string class, int device_count) / MogileFs:
 --SKIPIF--
 <?php
 require_once dirname(__FILE__) . '/test-helper.php';
+if (PHP_VERSION_ID >= 80000) die("skip PHP 7 only");
 if (mogilefs_skipped()) print "skip";
 --FILE--
 <?php
@@ -10,11 +11,7 @@ require_once dirname(__FILE__) . '/test-helper.php';
 $client = mogilefs_test_factory();
 
 // Params
-try {
-	$client->createClass();
-} catch (\ArgumentCountError $e) {
-	var_dump($e->getMessage(), $e->getCode());
-}
+$client->createClass();
 
 $classname = 'crud-test-class';
 
@@ -53,8 +50,8 @@ var_dump(count($data));
 ?>
 ==DONE==
 --EXPECTF--
-string(%d) "MogileFs::createClass() expects exactly 3 %s, 0 given"
-int(0)
+
+Warning: MogileFs::createClass() expects exactly 3 parameters, 0 given in %s on line %d
 bool(true)
 bool(true)
 bool(true)
