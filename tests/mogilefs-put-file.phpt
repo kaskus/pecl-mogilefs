@@ -29,7 +29,13 @@ try {
 	var_dump(get_class($e));
 	var_dump($e->getMessage());
 }
-var_dump($client->put());
+
+try {
+	$client->put();
+} catch (\ArgumentCountError $e) {
+	var_dump($e->getMessage(), $e->getCode());
+}
+
 
 ?>
 ==DONE==
@@ -46,7 +52,6 @@ bool(true)
 bool(true)
 string(%d) "MogileFsException"
 string(%d) "Could not open file"
-
-Warning: MogileFs::put() expects at least 3 parameters, 0 given in %s on line %d
-NULL
+string(%d) "MogileFs::put() expects at least 3 %s, 0 given"
+int(0)
 ==DONE==

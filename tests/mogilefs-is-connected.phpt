@@ -14,12 +14,18 @@ var_dump($client->isConnected());
 $client->close();
 var_dump($client->isConnected());
 
+try {
+    $client->isConnected('invalid param');
+} catch (\ArgumentCountError $e) {
+    var_dump($e->getMessage(), $e->getCode());
+}
 
-var_dump($client->isConnected('invalid param'));
+?>
+==DONE==
 --EXPECTF--
 bool(false)
 bool(true)
 bool(false)
-
-Warning: MogileFs::isConnected() expects exactly 0 parameters, 1 given in %s on line %d
-NULL
+string(%d) "MogileFs::isConnected() expects exactly 0 %s, 1 given"
+int(0)
+==DONE==

@@ -10,7 +10,11 @@ require_once dirname(__FILE__) . '/test-helper.php';
 $client = mogilefs_test_factory();
 
 // Params
-$client->createClass();
+try {
+	$client->createClass();
+} catch (\ArgumentCountError $e) {
+	var_dump($e->getMessage(), $e->getCode());
+}
 
 $classname = 'crud-test-class';
 
@@ -49,8 +53,8 @@ var_dump(count($data));
 ?>
 ==DONE==
 --EXPECTF--
-
-Warning: MogileFs::createClass() expects exactly 3 parameters, 0 given in %s on line %d
+string(%d) "MogileFs::createClass() expects exactly 3 %s, 0 given"
+int(0)
 bool(true)
 bool(true)
 bool(true)

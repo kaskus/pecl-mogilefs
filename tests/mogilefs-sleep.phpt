@@ -14,13 +14,17 @@ var_dump($client->sleep(1));
 $end = (microtime(true) - $start);
 var_dump($end >= 1);
 
-var_dump($client->sleep("wrong"));
+try {
+    $client->sleep("wrong");
+} catch (\TypeError $e) {
+    var_dump($e->getMessage(), $e->getCode());
+}
+
 ?>
 ==DONE==
 --EXPECTF--
 bool(true)
 bool(true)
-
-Warning: MogileFs::sleep() expects parameter 1 to be integer, string given in %s on line %d
-NULL
+string(%d) "MogileFs::sleep(): Argument #1 ($duration) must be of type int, string given"
+int(0)
 ==DONE==

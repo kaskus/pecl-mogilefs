@@ -38,7 +38,11 @@ try {
 
 // Params
 $client = new MogileFs();
-var_dump($client->connect());
+try{
+	$client->connect();
+}catch (ArgumentCountError $e){
+	var_dump($e->getMessage(), $e->getCode());
+}
 ?>
 ==DONE==
 --EXPECTF--
@@ -51,7 +55,6 @@ string(%d) "Invalid timeout"
 int(0)
 string(%d) "Invalid timeout"
 int(0)
-
-Warning: MogileFs::connect() expects at least 3 parameters, 0 given in %s on line %d
-NULL
+string(%d) "MogileFs::connect() expects at least 3 %s, 0 given"
+int(0)
 ==DONE==

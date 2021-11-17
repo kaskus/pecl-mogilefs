@@ -11,7 +11,12 @@ require_once dirname(__FILE__) . '/test-helper.php';
 $client = mogilefs_test_factory();
 var_dump($client->close());
 var_dump($client->close());
-var_dump($client->close("param"));
+
+try {
+	$client->close("param");
+} catch (\ArgumentCountError $e) {
+	var_dump($e->getMessage(), $e->getCode());
+}
 
 $client = mogilefs_test_factory();
 var_dump($client->disconnect());
@@ -21,9 +26,8 @@ var_dump($client->disconnect());
 --EXPECTF--
 bool(true)
 bool(false)
-
-Warning: MogileFs::close() expects exactly 0 parameters, 1 given in %s on line %d
-NULL
+string(%d) "MogileFs::close() expects exactly 0 %s, 1 given"
+int(0)
 bool(true)
 bool(false)
 ==DONE==
